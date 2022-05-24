@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.gb.gbchat2.server.ChatServer.log;
+
 public class InMemoryAuthService implements AuthService {
 
     private final List<UserData> users;
@@ -27,12 +29,12 @@ public class InMemoryAuthService implements AuthService {
 
     @Override
     public void run() {
-        System.out.println("AuthService run");
+        log.info("AuthService run");
     }
 
     @Override
     public void close() throws IOException {
-        System.out.println("AuthService closed");
+        log.info("AuthService closed");
     }
 
     private static class UserData {

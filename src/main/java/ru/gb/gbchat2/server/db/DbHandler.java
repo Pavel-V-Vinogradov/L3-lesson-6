@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static ru.gb.gbchat2.server.ChatServer.log;
+
 public class DbHandler {
 
     private Connection connection;
@@ -14,7 +16,7 @@ public class DbHandler {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:sqlite.db");
             DatabaseMetaData metaData = connection.getMetaData();
-            System.out.printf("Database connected:  %s %s, %s\n",
+            log.info("Database connected:  {}{}, {}",
                     metaData.getDatabaseProductName(),
                     metaData.getDriverVersion(),
                     metaData.getURL()
@@ -44,13 +46,13 @@ public class DbHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Table \"client\" created or exists\n");
+        log.debug("Table \"client\" created or exists");
     }
 
     public void disconnect() throws SQLException {
         if (connection != null) {
             connection.close();
-            System.out.println("database disconnected\n");
+            log.debug("database disconnected");
         }
     }
 
@@ -85,6 +87,7 @@ public class DbHandler {
 
     /**
      * Смена ника пользователя TODO: доработать UI
+     *
      * @param login   - для какого логина меняем
      * @param newNick - новый ник
      */
@@ -94,6 +97,7 @@ public class DbHandler {
 
     /**
      * Смена пароля пользователя TODO: доработать UI
+     *
      * @param login       - для какого логина меняем
      * @param newPassword - новый пароль
      */
@@ -164,7 +168,7 @@ public class DbHandler {
                 prepareInsert.addBatch();
             }
             prepareInsert.executeBatch();
-            System.out.println("register clients: " + client.stream()
+            log.debug("register clients: {}", () -> client.stream()
                     .map(Client::getLogin)
                     .collect(Collectors.toList())
             );

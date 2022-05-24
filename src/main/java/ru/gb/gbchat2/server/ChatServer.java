@@ -6,11 +6,14 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.gb.gbchat2.Command;
 
 public class ChatServer {
 
     private final Map<String, ClientHandler> clients;
+    public final static Logger log = LogManager.getLogger("ChatLogger");
 
     public ChatServer() {
         this.clients = new HashMap<>();
@@ -19,11 +22,11 @@ public class ChatServer {
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(8189);
              AuthService authService = new DbAuthService()) {
-            while (true) {
-                System.out.println("Wait client connection...");
+             while (true) {
+                log.info("Wait client connection...");
                 final Socket socket = serverSocket.accept();
                 new ClientHandler(socket, this, authService);
-                System.out.println("Client connected");
+                log.debug("Client connected");
             }
         } catch (IOException e) {
             e.printStackTrace();

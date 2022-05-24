@@ -10,6 +10,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static ru.gb.gbchat2.server.ChatServer.log;
+
 public class ClientHandler {
     private final Socket socket;
     private final ChatServer server;
@@ -120,12 +122,15 @@ public class ClientHandler {
     }
 
     public void sendMessage(Command command, String... params) {
+        if (Command.ERROR.equals(command)) {
+            log.error("{}", () -> command.collectMessage(params));
+        }
         sendMessage(command.collectMessage(params));
     }
 
     public void sendMessage(String message) {
         try {
-            System.out.println("SERVER: Send message to " + nick);
+            log.debug("SERVER: Send message to {}", () -> nick);
             out.writeUTF(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,7 +144,7 @@ public class ClientHandler {
         try {
             while (true) {
                 final String msg = in.readUTF();
-                System.out.println("Receive message: " + msg);
+                log.debug("Receive message: {}", () -> msg);
                 if (Command.isCommand(msg)) {
                     final Command command = Command.getCommand(msg);
                     final String[] params = command.parse(msg);

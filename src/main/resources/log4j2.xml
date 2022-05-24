@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Configuration>
+    <Appenders>
+        <Console name="cons" target="SYSTEM-OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} %msg%n"/>
+        </Console>
+        <File name = "to_file" fileName = "chat.log" append = "true">
+            <PatternLayout pattern="%-5p %d{HH:mm:ss.SSS} [%t] %C (%F:%L) -%m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="ChatLogger" level = "debug" additivity="false">
+            <AppenderRef ref="cons"/>
+            <AppenderRef ref="to_file"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="cons"/>
+        </Root>
+    </Loggers>
+</Configuration>

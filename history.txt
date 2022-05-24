@@ -1,0 +1,32 @@
+1111
+nick1: 1111
+222
+nick1: 222
+333
+nick1: 333
+444
+nick1: 444
+555
+nick1: 555
+sdfasf
+nick1: sdfasf
+gdg dgh dfhgd h5 5hy5yh yj5y j5j u 7j 7i k 8ik
+nick1: gdg dgh dfhgd h5 5hy5yh yj5y j5j u 7j 7i k 8ik
+999999
+nick1: 999999
+88888
+nick1: 88888
+7777
+nick1: 7777
+666
+nick1: 666
+555
+nick1: 555
+444
+nick1: 444
+333
+nick1: 333
+222
+nick1: 222
+11
+nick1: 11
